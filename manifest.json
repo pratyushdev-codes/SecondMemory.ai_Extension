@@ -1,0 +1,16 @@
+{
+    "name": "SecondMemory.ai",
+    "version": "1.0.0",
+    "description": "Extension for SecondMemory.ai",
+    "manifest_version": 3,
+    "icons": {
+        "16": "./supermemoryailogo.png",
+        "48": "./supermemoryailogo.png",
+        "128": "./supermemoryailogo.png"
+    },
+    "author": "Pratyush Birole",
+    "action": {
+        "default_popup": "index.html",
+        "default_title": "SecondMemory.ai"
+    }
+}
