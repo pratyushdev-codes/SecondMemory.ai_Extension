@@ -1,3 +1,6 @@
+<script src=
+"https://www.gstatic.com/firebasejs/3.7.4/firebase.js">
+    </script>
 document.getElementById('urlForm').addEventListener('submit', function(e) {
     e.preventDefault();
     

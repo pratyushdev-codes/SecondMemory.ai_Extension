@@ -10,7 +10,9 @@
 </head>
 <body class="dark-theme" style="background-image: url('./1.jpg'); background-size: cover;">
     <div class="container">
-        <h4 class="text-center mb-4"><img src="./supermemoryailogo.svg"/ alt="logo" style=" width: 21px; height: 21px;">&nbsp;SecondMemory.ai</h4>
+        <h4 class="text-center mb-4">
+            <img src="./supermemoryailogo.svg" alt="logo" style="width: 21px; height: 21px;">&nbsp;SecondMemory.ai
+        </h4>
         <h4 class="text-center mb-4" style="color: gray;">Add websites to your Knowledge base.</h4>
         <form id="urlForm">
             <div class="mb-3">
@@ -20,13 +22,55 @@
                        id="websiteUrl" 
                        placeholder="https://example.com"
                        required
-                       style="border-radius: 20px;"
-                       >
+                       style="border-radius: 20px;">
             </div>
             <button type="submit" class="btn btn-primary w-100 mb-2">Submit</button>
         </form>
-        <button type="submit" id="addCurrentPage" class="btn btn-secondary w-100">Add Current Webpage</button>
+        <button id="addCurrentPage" class="btn btn-secondary w-100">Add Current Webpage</button>
     </div>
-    <script type="module" src="/main.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js"></script>
+    <script>
+        // Firebase initialization
+        const firebaseConfig = {
+            apiKey: "AIzaSyAzvf9coRhksEk8Zhcwuw4EVKjJgcQovgY",
+            authDomain: "secondmemoryai.firebaseapp.com",
+            databaseURL: "https://secondmemoryai-default-rtdb.firebaseio.com",
+            projectId: "secondmemoryai",
+            storageBucket: "secondmemoryai.firebasestorage.app",
+            messagingSenderId: "499193830498",
+            appId: "1:499193830498:web:2bde2b78e6d0d94c70053b",
+            measurementId: "G-4GQJ2B5W9Q"
+          }
+        firebase.initializeApp(firebaseConfig);
+
+        // Reference to the database
+        const dbRef = firebase.database().ref("websiteData");
+
+        // Save message to Firebase
+        const saveMessage = (url) => {
+            dbRef.push({ url });
+        };
+
+        // Handle form submission
+        document.getElementById('urlForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const websiteUrl = document.getElementById('websiteUrl').value;
+
+            if (websiteUrl) {
+                saveMessage(websiteUrl);
+                console.log("URL saved:", websiteUrl);
+                document.getElementById('urlForm').reset();
+            } else {
+                console.error("URL field is empty.");
+            }
+        });
+
+        // Handle "Add Current Webpage" button click
+        document.getElementById('addCurrentPage').addEventListener('click', () => {
+            const currentUrl = window.location.href;
+            saveMessage(currentUrl);
+            console.log("Current page URL saved:", currentUrl);
+        });
+    </script>
 </body>
 </html>
